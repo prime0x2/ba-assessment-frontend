@@ -16,4 +16,26 @@ export const CONSTANT = {
       method: "POST",
     },
   },
+  TASK: {
+    CREATE: {
+      url: `${API}/task`,
+      method: "POST",
+    },
+    GET_ALL: {
+      url: `${API}/task`,
+      method: "GET",
+    },
+    GET_BY_ID: {
+      url: `${API}/task/:id`,
+      method: "GET",
+    },
+    UPDATE: {
+      url: `${API}/task/:id`,
+      method: "PUT",
+    },
+    DELETE: {
+      url: `${API}/task`,
+      method: "DELETE",
+    },
+  },
 };

@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import Sidebar from "@/components/sidebar";
 import PrivateRoute from "@/components/private-route";
 import { Home, Dashboard, TaskDetails, Settings, NotFound } from "@/pages";
 
@@ -9,29 +10,52 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home />, // Home page route
   },
+  // {
+  //   path: "/dashboard",
+  //   element: (
+  //     <PrivateRoute>
+  //       <Sidebar />
+  //       <Dashboard />
+  //     </PrivateRoute>
+  //   ), // Dashboard page route
+  // },
+  // {
+  //   path: "/task/:id",
+  //   element: (
+  //     <PrivateRoute>
+  //       <TaskDetails />
+  //     </PrivateRoute>
+  //   ), // Task detail page route
+  // },
+  // {
+  //   path: "/settings",
+  //   element: (
+  //     <PrivateRoute>
+  //       <Settings />
+  //     </PrivateRoute>
+  //   ), // Settings page route
+  // },
   {
     path: "/dashboard",
     element: (
       <PrivateRoute>
-        <Dashboard />
+        <Sidebar />
       </PrivateRoute>
-    ), // Dashboard page route
-  },
-  {
-    path: "/task/:id",
-    element: (
-      <PrivateRoute>
-        <TaskDetails />
-      </PrivateRoute>
-    ), // Task detail page route
-  },
-  {
-    path: "/settings",
-    element: (
-      <PrivateRoute>
-        <Settings />
-      </PrivateRoute>
-    ), // Settings page route
+    ),
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+      {
+        path: "task/:id",
+        element: <TaskDetails />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+      },
+    ],
   },
   {
     path: "*",
