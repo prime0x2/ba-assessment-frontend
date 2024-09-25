@@ -125,3 +125,5 @@ const tasksSlice = createSlice({
       });
   },
 });
+
+export default tasksSlice.reducer;

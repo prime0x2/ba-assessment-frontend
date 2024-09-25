@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 
 import userReducer from "./user/slice";
+import tasksReducer from "./tasks/slice";
 
 // Persist configuration for the user and preferences state
 const persistConfig = {
@@ -15,6 +16,7 @@ const persistedReducer = persistReducer(persistConfig, userReducer);
 const store = configureStore({
   reducer: {
     userSlice: persistedReducer,
+    tasksSlice: tasksReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });

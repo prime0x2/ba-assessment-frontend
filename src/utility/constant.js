@@ -18,23 +18,23 @@ export const CONSTANT = {
   },
   TASK: {
     CREATE: {
-      url: `${API}/task`,
+      url: `${API}/tasks`,
       method: "POST",
     },
     GET_ALL: {
-      url: `${API}/task`,
+      url: `${API}/tasks`,
       method: "GET",
     },
     GET_BY_ID: {
-      url: `${API}/task/:id`,
+      url: `${API}/tasks/:id`,
       method: "GET",
     },
     UPDATE: {
-      url: `${API}/task/:id`,
+      url: `${API}/tasks/:id`,
       method: "PUT",
     },
     DELETE: {
-      url: `${API}/task`,
+      url: `${API}/tasks`,
       method: "DELETE",
     },
   },

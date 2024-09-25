@@ -38,7 +38,7 @@ const initialState = {
   loading: false,
   error: null,
   preferences: {
-    showStatusFilter: true,
+    showStatusFilter: false,
     showDueDateFilter: true,
     showPriorityFilter: true,
     sortBy: "dueDate",
