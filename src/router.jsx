@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import PrivateRoute from "@/components/private-route";
 import { Home, Dashboard, TaskDetails, Settings, NotFound } from "@/pages";
 
 // Define the routes for the application
@@ -10,15 +11,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />, // Dashboard page route
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ), // Dashboard page route
   },
   {
     path: "/task/:id",
-    element: <TaskDetails />, // Task detail page route
+    element: (
+      <PrivateRoute>
+        <TaskDetails />
+      </PrivateRoute>
+    ), // Task detail page route
   },
   {
     path: "/settings",
-    element: <Settings />, // Settings page route
+    element: (
+      <PrivateRoute>
+        <Settings />
+      </PrivateRoute>
+    ), // Settings page route
   },
   {
     path: "*",

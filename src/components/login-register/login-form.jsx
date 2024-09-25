@@ -1,12 +1,18 @@
 import React from "react";
+import Cookies from "js-cookie";
 import { Form, Input, Button } from "antd";
 import { Controller, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
 import useToast from "@/hooks/useToast";
+import { loginUser } from "@/redux/user/slice";
 import GoogleLogo from "@/assets/google-logo.svg";
+import { CONSTANT } from "@/utility/constant";
 
 const LoginForm = () => {
   const toast = useToast();
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.userSlice);
 
   const {
     control,
@@ -21,9 +27,22 @@ const LoginForm = () => {
   });
 
   const onSubmit = (data) => {
-    toast.success("Login successful");
+    // console.log("🚀 prime0x2 | login-form.js | onSubmit | data -->\n", data);
 
-    console.log("🚀 prime0x2 | login-form.js | onSubmit | data -->\n", data);
+    dispatch(loginUser(data))
+      .unwrap()
+      .then((response) => {
+        console.log("🚀 prime0x2 | login-form.js | onSubmit | response -->\n", response);
+
+        if (response.token) {
+          Cookies.set("ba-token", response.token, { expires: 7 });
+          toast.success("Login successful");
+        }
+      })
+      .catch((error) => {
+        console.error("🚀 prime0x2 | login-form.js | onSubmit | error -->\n", error);
+        toast.error(error.message || CONSTANT.DEFAULT_ERROR_TEXT, 5);
+      });
   };
 
   return (
@@ -87,8 +106,8 @@ const LoginForm = () => {
         type='primary'
         htmlType='submit'
         className='mt-4 h-10 w-full text-sm font-medium'
-        // loading={isPending}
-        // disabled={isPending}
+        loading={loading}
+        disabled={loading}
       >
         Sign In
       </Button>
@@ -108,6 +127,7 @@ const LoginForm = () => {
         type='default'
         className='mb-2 mt-4 flex h-10 w-full items-center justify-center text-sm font-medium text-slate-600'
         icon={<img src={GoogleLogo} alt='Google Logo' className='mr-2 h-5 w-5' />}
+        disabled={loading}
       >
         Continue with Google
       </Button>

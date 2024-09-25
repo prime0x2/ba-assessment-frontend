@@ -1,11 +1,18 @@
 import React from "react";
 import { Segmented } from "antd";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 import LoginVector from "@/assets/login-vector.svg";
 import { LoginForm, RegisterForm } from "@/components/login-register";
 
 const Home = () => {
-  const [activeTab, setActiveTab] = React.useState("login"); // login or register
+  const [activeTab, setActiveTab] = React.useState("login");
+
+  const isAuthenticated = useSelector((state) => state.userSlice.isAuthenticated);
+  if (isAuthenticated) {
+    return <Navigate to='/dashboard' />;
+  }
 
   return (
     <div className='flex flex-wrap items-center justify-center bg-slate-50 sm:p-10 md:min-h-dvh'>
