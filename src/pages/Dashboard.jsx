@@ -166,14 +166,14 @@ const Dashboard = () => {
       render: (_, record) => (
         <Space size='middle'>
           <Tooltip title='Edit Task'>
-            <Button icon={<AiOutlineEdit />} onClick={() => navigate(`/dashboard/task/${record.id}`)} />
+            <Button icon={<AiOutlineEdit />} onClick={() => navigate(`/dashboard/task/${record._id}`)} />
           </Tooltip>
 
           <Tooltip title='Delete Task'>
             <Popconfirm
               title='Delete this task?'
               placement='topLeft'
-              onConfirm={() => handleDeleteTask(record.id)}
+              onConfirm={() => handleDeleteTask(record._id)}
               okButtonProps={{ danger: true }}
               okText='Yes'
               cancelText='No'
