@@ -1,5 +1,6 @@
 import React from "react";
 import dayjs from "dayjs";
+import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineEdit, AiOutlineDelete, AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
@@ -33,7 +34,9 @@ const Dashboard = () => {
   };
 
   React.useEffect(() => {
-    dispatch(getAllTasks())
+    const token = Cookies.get("ba-token");
+
+    dispatch(getAllTasks(token))
       .unwrap()
       .then((response) => {
         console.log("🚀 prime0x2 | Dashboard.js | getAllTasks | response -->\n", response);
@@ -212,7 +215,9 @@ const Dashboard = () => {
       ids = selectedRowKeys;
     }
 
-    dispatch(deleteTask({ ids }))
+    const token = Cookies.get("ba-token");
+
+    dispatch(deleteTask({ token, bodyData: { ids } }))
       .unwrap()
       .then(() => {
         toast.success("Task deleted successfully", 5);

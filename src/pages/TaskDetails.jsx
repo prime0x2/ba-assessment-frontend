@@ -1,5 +1,6 @@
 import React from "react";
 import dayjs from "dayjs";
+import Cookies from "js-cookie";
 import { Button, Tag } from "antd";
 import { LuArrowLeft } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +21,9 @@ const TaskDetails = () => {
   const task = useSelector((state) => state.tasksSlice.task);
 
   React.useEffect(() => {
-    dispatch(getTaskById(id))
+    const token = Cookies.get("ba-token");
+
+    dispatch(getTaskById({ token, id }))
       .unwrap()
       .catch((error) => {
         console.log("🚀 prime0x2 | TaskDetails.js | getTaskById | error -->\n", error);

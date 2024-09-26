@@ -1,5 +1,6 @@
 import React from "react";
 import dayjs from "dayjs";
+import Cookies from "js-cookie";
 import { LuArrowLeft } from "react-icons/lu";
 import { useForm, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,7 +38,9 @@ const TaskDetails = () => {
   });
 
   React.useEffect(() => {
-    dispatch(getTaskById(id))
+    const token = Cookies.get("ba-token");
+
+    dispatch(getTaskById({ token, id }))
       .unwrap()
       .then((response) => {
         console.log("🚀 prime0x2 | TaskDetails.js | getTaskById | response -->\n", response);
@@ -62,7 +65,9 @@ const TaskDetails = () => {
   const onSubmit = (data) => {
     console.log("🚀 prime0x2 | TaskDetails.js | onSubmit | data -->\n", data);
 
-    dispatch(updateTask({ id, bodyData: data }))
+    const token = Cookies.get("ba-token");
+
+    dispatch(updateTask({ token, id, bodyData: data }))
       .unwrap()
       .then((response) => {
         console.log("🚀 prime0x2 | TaskDetails.js | updateTask | response -->\n", response);

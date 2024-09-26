@@ -1,5 +1,6 @@
 import React from "react";
 import dayjs from "dayjs";
+import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { LuArrowLeft } from "react-icons/lu";
 import { useForm, Controller } from "react-hook-form";
@@ -37,7 +38,8 @@ const TaskCreate = () => {
   const onSubmit = (data) => {
     console.log("🚀 prime0x2 | TaskCreate.js | onSubmit | data -->\n", data);
 
-    dispatch(createTask(data))
+    const token = Cookies.get("ba-token");
+    dispatch(createTask({ token, bodyData: data }))
       .unwrap()
       .then((response) => {
         console.log("🚀 prime0x2 | TaskCreate.js | createTask | response -->\n", response);

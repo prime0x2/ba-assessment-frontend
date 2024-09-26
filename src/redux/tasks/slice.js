@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { create, getAll, getById, update, remove } from "./api";
 
-export const createTask = createAsyncThunk("tasks/create", async (bodyData, { rejectWithValue }) => {
+export const createTask = createAsyncThunk("tasks/create", async ({ token, bodyData }, { rejectWithValue }) => {
   try {
-    const response = await create(bodyData);
+    const response = await create(token, bodyData);
 
     return response;
   } catch (error) {
@@ -12,9 +12,9 @@ export const createTask = createAsyncThunk("tasks/create", async (bodyData, { re
   }
 });
 
-export const getAllTasks = createAsyncThunk("tasks/getAll", async (_, { rejectWithValue }) => {
+export const getAllTasks = createAsyncThunk("tasks/getAll", async (token, { rejectWithValue }) => {
   try {
-    const response = await getAll();
+    const response = await getAll(token);
 
     return response;
   } catch (error) {
@@ -22,9 +22,9 @@ export const getAllTasks = createAsyncThunk("tasks/getAll", async (_, { rejectWi
   }
 });
 
-export const getTaskById = createAsyncThunk("tasks/getById", async (id, { rejectWithValue }) => {
+export const getTaskById = createAsyncThunk("tasks/getById", async ({ token, id }, { rejectWithValue }) => {
   try {
-    const response = await getById(id);
+    const response = await getById(token, id);
 
     return response;
   } catch (error) {
@@ -32,9 +32,9 @@ export const getTaskById = createAsyncThunk("tasks/getById", async (id, { reject
   }
 });
 
-export const updateTask = createAsyncThunk("tasks/update", async ({ id, bodyData }, { rejectWithValue }) => {
+export const updateTask = createAsyncThunk("tasks/update", async ({ token, id, bodyData }, { rejectWithValue }) => {
   try {
-    const response = await update(id, bodyData);
+    const response = await update(token, { id, bodyData });
 
     return response;
   } catch (error) {
@@ -42,9 +42,9 @@ export const updateTask = createAsyncThunk("tasks/update", async ({ id, bodyData
   }
 });
 
-export const deleteTask = createAsyncThunk("tasks/delete", async (bodyData, { rejectWithValue }) => {
+export const deleteTask = createAsyncThunk("tasks/delete", async ({ token, bodyData }, { rejectWithValue }) => {
   try {
-    const response = await remove(bodyData);
+    const response = await remove(token, bodyData);
 
     return response;
   } catch (error) {

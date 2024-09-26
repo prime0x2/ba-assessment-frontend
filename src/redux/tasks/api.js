@@ -3,9 +3,7 @@ import Cookies from "js-cookie";
 
 import { CONSTANT } from "@/utility/constant";
 
-const token = Cookies.get("ba-token");
-
-export const create = async (bodyData) => {
+export const create = async (token, bodyData) => {
   const { data } = await axios({
     url: CONSTANT.TASK.CREATE.url,
     method: CONSTANT.TASK.CREATE.method,
@@ -19,7 +17,7 @@ export const create = async (bodyData) => {
   return data;
 };
 
-export const getAll = async () => {
+export const getAll = async (token) => {
   const { data } = await axios({
     url: CONSTANT.TASK.GET_ALL.url,
     method: CONSTANT.TASK.GET_ALL.method,
@@ -31,7 +29,7 @@ export const getAll = async () => {
   return data;
 };
 
-export const getById = async (id) => {
+export const getById = async (token, id) => {
   const { data } = await axios({
     url: CONSTANT.TASK.GET_BY_ID.url.replace(":id", id),
     method: CONSTANT.TASK.GET_BY_ID.method,
@@ -43,7 +41,7 @@ export const getById = async (id) => {
   return data;
 };
 
-export const update = async (id, bodyData) => {
+export const update = async (token, { id, bodyData }) => {
   const { data } = await axios({
     url: CONSTANT.TASK.UPDATE.url.replace(":id", id),
     method: CONSTANT.TASK.UPDATE.method,
@@ -57,7 +55,7 @@ export const update = async (id, bodyData) => {
   return data;
 };
 
-export const remove = async (bodyData) => {
+export const remove = async (token, bodyData) => {
   const { data } = await axios({
     url: CONSTANT.TASK.DELETE.url,
     method: CONSTANT.TASK.DELETE.method,
