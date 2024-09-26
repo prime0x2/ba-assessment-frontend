@@ -3,6 +3,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Layout, Menu, Button, Avatar, Dropdown } from "antd";
 import { LuClipboardList, LuSettings, LuLogOut } from "react-icons/lu";
+import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 
 import useAuth from "@/hooks/useAuth";
 
@@ -53,20 +54,22 @@ const Sidebar = () => {
   return (
     <Layout className='min-h-screen'>
       <Layout.Sider
-        width={240}
+        width={220}
         style={{
           background: "#fff",
           height: "100vh",
         }}
         breakpoint='lg'
         collapsedWidth='0'
-        className='adminSidebar left-0 top-0 z-10 border-r px-4'
+        className='adminSidebar left-0 top-0 z-10 border-r'
         onCollapse={(collapsed, type) => {
           setCollapsed((prev) => ({
             ...prev,
             collapsed,
           }));
         }}
+        trigger={null}
+        collapsed={collapsed.collapsed}
         onBreakpoint={(broken) => {
           const sider = document.querySelector(".adminSidebar");
 
@@ -97,6 +100,20 @@ const Sidebar = () => {
           selectedKeys={[items.find((item) => item.key === pathname)?.key]}
           className='!border-none'
         />
+
+        {!collapsed.collapsed && collapsed.breakpoint && (
+          <Button
+            type='text'
+            icon={<AiOutlineMenuFold />}
+            onClick={() => {
+              setCollapsed((prev) => ({
+                ...prev,
+                collapsed: !prev.collapsed,
+              }));
+            }}
+            className='absolute -right-10 top-4 z-[100] inline-block bg-gray-100 p-2 sm:hidden'
+          />
+        )}
       </Layout.Sider>
 
       <Layout className='relative'>
@@ -105,7 +122,21 @@ const Sidebar = () => {
         )}
 
         <Layout.Header className='flex items-center bg-white p-0 pl-4 pr-6'>
-          <div className='flex-grow'>
+          <div className='flex flex-grow items-center gap-x-4'>
+            {collapsed.collapsed && collapsed.breakpoint && (
+              <Button
+                type='text'
+                icon={<AiOutlineMenuUnfold />}
+                onClick={() => {
+                  setCollapsed((prev) => ({
+                    ...prev,
+                    collapsed: !prev.collapsed,
+                  }));
+                }}
+                className='inline-block bg-gray-100 p-2 sm:hidden'
+              />
+            )}
+
             <h1 className='text-xl font-bold'>{routeTitle}</h1>
           </div>
 

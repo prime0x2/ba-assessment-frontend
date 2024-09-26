@@ -66,7 +66,7 @@ const TaskCreate = () => {
       </h1>
 
       <Form layout='vertical' onFinish={handleSubmit(onSubmit)} className='mt-5 px-0 sm:px-1'>
-        <div className='grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-5'>
+        <div className='grid gap-x-4 gap-y-2 sm:gap-x-10 sm:gap-y-5'>
           <Form.Item
             label={<span className='text-sm font-medium'>Title</span>}
             validateStatus={errors.title ? "error" : ""}
@@ -75,7 +75,7 @@ const TaskCreate = () => {
                 <p className='mt-2 text-xs font-medium tracking-wide text-red-500'>{errors.title.message}</p>
               )
             }
-            className='mb-0 mt-2 w-full'
+            className='col-span-2 mb-0 mt-2 w-full sm:col-span-1'
           >
             <Controller
               name='title'
@@ -95,7 +95,7 @@ const TaskCreate = () => {
                 <p className='mt-2 text-xs font-medium tracking-wide text-red-500'>{errors.dueDate.message}</p>
               )
             }
-            className='mb-0 mt-2 w-full'
+            className='col-span-2 mb-0 mt-2 sm:col-span-1'
           >
             <Controller
               name='dueDate'
@@ -122,7 +122,7 @@ const TaskCreate = () => {
                 <p className='mt-2 text-xs font-medium tracking-wide text-red-500'>{errors.priority.message}</p>
               )
             }
-            className='mb-0 mt-2 w-full'
+            className='col-span-2 mb-0 mt-2 w-full sm:col-span-1'
           >
             <Controller
               name='priority'
@@ -154,7 +154,7 @@ const TaskCreate = () => {
                 <p className='mt-2 text-xs font-medium tracking-wide text-red-500'>{errors.status.message}</p>
               )
             }
-            className='mb-0 mt-2 w-full'
+            className='col-span-2 mb-0 mt-2 w-full sm:col-span-1'
           >
             <Controller
               name='status'

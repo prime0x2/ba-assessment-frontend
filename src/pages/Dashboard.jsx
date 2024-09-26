@@ -229,8 +229,8 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className='mb-5 flex w-full flex-col items-center justify-between gap-y-4 sm:flex-row'>
-        <Space size='middle'>
+      <div className='mb-5 flex w-full flex-col-reverse items-center justify-between gap-y-4 sm:flex-row'>
+        <Space size='middle' className='grid grid-cols-1 sm:flex'>
           <Input
             size='large'
             placeholder='Search...'
@@ -252,7 +252,7 @@ const Dashboard = () => {
                 onChange={(date) => setFilterDate(date)}
                 format='DD MMM, YYYY'
                 placeholder='Filter by Due Date'
-                className='h-10 w-44 text-sm'
+                className='h-10 w-full text-sm sm:w-44'
               />
             </Tooltip>
           )}
@@ -263,7 +263,7 @@ const Dashboard = () => {
               value={filterPriority || undefined}
               onChange={(value) => setFilterPriority(value || "")}
               placeholder='Filter by Priority'
-              className='h-10 w-44'
+              className='h-10 w-full sm:w-44'
             >
               <Select.Option value='high'>High</Select.Option>
               <Select.Option value='medium'>Medium</Select.Option>
@@ -277,7 +277,7 @@ const Dashboard = () => {
               value={filterStatus || undefined}
               onChange={(value) => setFilterStatus(value || "")}
               placeholder='Filter by Status'
-              className='h-10 w-44'
+              className='h-10 w-full sm:w-44'
             >
               <Select.Option value='completed'>Completed</Select.Option>
               <Select.Option value='in-progress'>In Progress</Select.Option>
@@ -288,7 +288,7 @@ const Dashboard = () => {
           {searchQuery || filterDate || filterPriority || filterStatus ? (
             <Button
               size='large'
-              className='h-10 text-sm'
+              className='h-10 w-full text-sm sm:w-auto'
               onClick={() => {
                 setSearchQuery("");
                 setFilterDate("");
