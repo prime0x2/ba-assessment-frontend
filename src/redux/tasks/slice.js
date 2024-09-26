@@ -93,6 +93,21 @@ const tasksSlice = createSlice({
         state.error = action.payload || "Unable to fetch tasks";
       })
 
+      // Get Task By Id: Fetch the task by ID and store it in the state
+
+      .addCase(getTaskById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getTaskById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.task = action.payload;
+      })
+      .addCase(getTaskById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Unable to fetch task";
+      })
+
       // Update Task: Find and update the task directly in the state
       .addCase(updateTask.pending, (state) => {
         state.loading = true;
@@ -100,7 +115,7 @@ const tasksSlice = createSlice({
       })
       .addCase(updateTask.fulfilled, (state, action) => {
         state.loading = false;
-        const index = state.tasks.findIndex((task) => task.id === action.payload.id);
+        const index = state.tasks.findIndex((task) => task._id === action.payload.id);
         if (index !== -1) {
           state.tasks[index] = action.payload; // Update the task in the state
         }
@@ -117,7 +132,7 @@ const tasksSlice = createSlice({
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.loading = false;
-        state.tasks = state.tasks.filter((task) => task.id !== action.meta.arg); // Remove the task from the state
+        state.tasks = state.tasks.filter((task) => task._id !== action.meta.arg); // Remove the task from the state
       })
       .addCase(deleteTask.rejected, (state, action) => {
         state.loading = false;
