@@ -54,14 +54,14 @@ const userSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
     },
-    toggleStatusFilter: (state) => {
-      state.preferences.showStatusFilter = !state.preferences.showStatusFilter;
+    setShowStatusFilter: (state, action) => {
+      state.preferences.showStatusFilter = action.payload;
     },
-    toggleDueDateFilter: (state) => {
-      state.preferences.showDueDateFilter = !state.preferences.showDueDateFilter;
+    setShowDueDateFilter: (state, action) => {
+      state.preferences.showDueDateFilter = action.payload;
     },
-    togglePriorityFilter: (state) => {
-      state.preferences.showPriorityFilter = !state.preferences.showPriorityFilter;
+    setShowPriorityFilter: (state, action) => {
+      state.preferences.showPriorityFilter = action.payload;
     },
     setSortBy: (state, action) => {
       state.preferences.sortBy = action.payload;
@@ -123,12 +123,12 @@ const userSlice = createSlice({
 // Export actions for user authentication and preferences
 export const {
   logout,
-  toggleStatusFilter,
-  toggleDueDateFilter,
-  togglePriorityFilter,
   setSortBy,
   setSortOrder,
   clearUserSlice,
+  setShowStatusFilter,
+  setShowDueDateFilter,
+  setShowPriorityFilter,
 } = userSlice.actions;
 
 // Export the reducer

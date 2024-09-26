@@ -67,9 +67,15 @@ const Dashboard = () => {
               ? -1
               : 1;
         } else if (sortBy === "priority") {
-          return sortOrder === "asc" ? a.priority.localeCompare(b.priority) : b.priority.localeCompare(a.priority);
+          const priorityOrder = ["low", "medium", "high"];
+          return sortOrder === "asc"
+            ? priorityOrder.indexOf(a.priority) - priorityOrder.indexOf(b.priority)
+            : priorityOrder.indexOf(b.priority) - priorityOrder.indexOf(a.priority);
         } else if (sortBy === "status") {
-          return sortOrder === "asc" ? a.status.localeCompare(b.status) : b.status.localeCompare(a.status);
+          const statusOrder = ["pending", "in-progress", "completed"];
+          return sortOrder === "asc"
+            ? statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status)
+            : statusOrder.indexOf(b.status) - statusOrder.indexOf(a.status);
         }
       });
   }, [tasks, searchQuery, searchOption, filterDate, filterPriority, filterStatus, sortBy, sortOrder]);
