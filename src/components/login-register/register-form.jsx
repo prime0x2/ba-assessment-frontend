@@ -1,12 +1,18 @@
 import React from "react";
+import Cookies from "js-cookie";
 import { Form, Input, Button } from "antd";
 import { Controller, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
 import useToast from "@/hooks/useToast";
-import GoogleLogo from "@/assets/google-logo.svg";
+import { CONSTANT } from "@/utility/constant";
+import { registerUser } from "@/redux/user/slice";
+import GoogleButton from "@/components/google-button";
 
 const RegisterForm = () => {
   const toast = useToast();
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.userSlice);
 
   const {
     control,
@@ -22,9 +28,18 @@ const RegisterForm = () => {
   });
 
   const onSubmit = (data) => {
-    toast.success("Register successful");
-
-    console.log("🚀 prime0x2 | register-form.js | onSubmit | data -->\n", data);
+    dispatch(registerUser(data))
+      .unwrap()
+      .then((response) => {
+        if (response.token) {
+          Cookies.set("ba-token", response.token, { expires: 7 });
+          toast.success("Register successful");
+        }
+      })
+      .catch((error) => {
+        console.error("🚀 prime0x2 | register-form.js | onSubmit | error -->\n", error);
+        toast.error(error.message || CONSTANT.DEFAULT_ERROR_TEXT, 5);
+      });
   };
 
   return (
@@ -125,13 +140,7 @@ const RegisterForm = () => {
         <div className='w-full border-t border-gray-300'></div>
       </div>
 
-      <Button
-        type='default'
-        className='mb-2 mt-4 flex h-10 w-full items-center justify-center text-sm font-medium text-slate-600'
-        icon={<img src={GoogleLogo} alt='Google Logo' className='mr-2 h-5 w-5' />}
-      >
-        Continue with Google
-      </Button>
+      <GoogleButton />
     </Form>
   );
 };

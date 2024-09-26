@@ -40,3 +40,11 @@ export const loginWithGoogle = async (bodyData) => {
 
   return data;
 };
+
+export const getGoogleUserInfo = async (access_token) => {
+  const { data } = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token}`, {
+    headers: { Authorization: `Bearer ${access_token}` },
+  });
+
+  return data;
+};

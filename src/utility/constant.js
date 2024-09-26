@@ -1,40 +1,45 @@
-export const API = import.meta.env.VITE_DEV_API_URL;
+const DEV_API = import.meta.env.VITE_DEV_API_URL;
+const PROD_API = import.meta.env.VITE_PROD_API_URL;
+
+export const API = !import.meta.env.DEV ? DEV_API : PROD_API;
+
+console.log("API", API);
 
 export const CONSTANT = {
   DEFAULT_ERROR_TEXT: "Something went wrong. Please try again.",
   USER: {
     REGISTER: {
-      url: `${API}/user/register`,
+      url: `${API}/user/register/`,
       method: "POST",
     },
     LOGIN: {
-      url: `${API}/user/login`,
+      url: `${API}/user/login/`,
       method: "POST",
     },
     GOOGLE_LOGIN: {
-      url: `${API}/user/google-login`,
+      url: `${API}/user/google-login/`,
       method: "POST",
     },
   },
   TASK: {
     CREATE: {
-      url: `${API}/tasks`,
+      url: `${API}/tasks/`,
       method: "POST",
     },
     GET_ALL: {
-      url: `${API}/tasks`,
+      url: `${API}/tasks/`,
       method: "GET",
     },
     GET_BY_ID: {
-      url: `${API}/tasks/:id`,
+      url: `${API}/tasks/:id/`,
       method: "GET",
     },
     UPDATE: {
-      url: `${API}/tasks/:id`,
+      url: `${API}/tasks/:id/`,
       method: "PUT",
     },
     DELETE: {
-      url: `${API}/tasks`,
+      url: `${API}/tasks/`,
       method: "DELETE",
     },
   },

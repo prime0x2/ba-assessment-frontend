@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { register, login, loginWithGoogle } from "./api";
+import { register, login, loginWithGoogle, getGoogleUserInfo } from "./api";
 
 export const registerUser = createAsyncThunk("userSlice/register", async (userData, { rejectWithValue }) => {
   try {
@@ -22,9 +22,17 @@ export const loginUser = createAsyncThunk("userSlice/login", async (loginData, {
   }
 });
 
-export const googleLogin = createAsyncThunk("userSlice/google-login", async (googleData, { rejectWithValue }) => {
+export const googleLogin = createAsyncThunk("userSlice/google-login", async (tokenResponse, { rejectWithValue }) => {
   try {
-    const response = await loginWithGoogle(googleData);
+    const { access_token } = tokenResponse;
+    const userInfo = await getGoogleUserInfo(access_token);
+
+    const bodyData = {
+      name: userInfo?.name,
+      email: userInfo?.email,
+      googleId: userInfo?.id,
+    };
+    const response = await loginWithGoogle(bodyData);
 
     return response;
   } catch (error) {
