@@ -89,6 +89,7 @@ const Dashboard = () => {
       key: "description",
       ellipsis: true,
       className: "w-80",
+      render: (description) => description || "N/A",
     },
     {
       title: "Created At",
@@ -166,19 +167,28 @@ const Dashboard = () => {
       render: (_, record) => (
         <Space size='middle'>
           <Tooltip title='Edit Task'>
-            <Button icon={<AiOutlineEdit />} onClick={() => navigate(`/dashboard/task/${record._id}`)} />
+            <Button
+              icon={<AiOutlineEdit />}
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/dashboard/task/update/${record._id}`);
+              }}
+            />
           </Tooltip>
 
           <Tooltip title='Delete Task'>
             <Popconfirm
               title='Delete this task?'
               placement='topLeft'
-              onConfirm={() => handleDeleteTask(record._id)}
+              onConfirm={(e) => {
+                e.stopPropagation();
+                handleDeleteTask(record._id);
+              }}
               okButtonProps={{ danger: true }}
               okText='Yes'
               cancelText='No'
             >
-              <Button icon={<AiOutlineDelete />} />
+              <Button icon={<AiOutlineDelete />} onClick={(e) => e.stopPropagation()} />
             </Popconfirm>
           </Tooltip>
         </Space>
@@ -311,12 +321,12 @@ const Dashboard = () => {
               </Popconfirm>
             </Tooltip>
           ) : (
-            <Tooltip title='Add New Task'>
+            <Tooltip title='Add New Task' placement='left'>
               <Button
                 className='flex items-center justify-center'
                 icon={<AiOutlinePlus size={20} />}
                 size='large'
-                // onClick={handleAddModal}
+                onClick={() => navigate("/dashboard/task")}
               />
             </Tooltip>
           )}
@@ -337,7 +347,10 @@ const Dashboard = () => {
           total: filteredTasks.length,
           showSizeChanger: true,
         }}
-        // scroll={{ x: 1000 }}
+        onRow={(record) => ({
+          onClick: () => navigate(`/dashboard/task/details/${record._id}`),
+          className: "cursor-pointer",
+        })}
         scroll={{ x: 1000 }}
       />
     </div>

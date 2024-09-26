@@ -2,39 +2,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Sidebar from "@/components/sidebar";
 import PrivateRoute from "@/components/private-route";
-import { Home, Dashboard, TaskDetails, Settings, NotFound } from "@/pages";
+import { Home, Dashboard, TaskCreate, TaskDetails, TaskUpdate, Settings, NotFound } from "@/pages";
 
 // Define the routes for the application
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />, // Home page route
+    element: <Home />,
   },
-  // {
-  //   path: "/dashboard",
-  //   element: (
-  //     <PrivateRoute>
-  //       <Sidebar />
-  //       <Dashboard />
-  //     </PrivateRoute>
-  //   ), // Dashboard page route
-  // },
-  // {
-  //   path: "/task/:id",
-  //   element: (
-  //     <PrivateRoute>
-  //       <TaskDetails />
-  //     </PrivateRoute>
-  //   ), // Task detail page route
-  // },
-  // {
-  //   path: "/settings",
-  //   element: (
-  //     <PrivateRoute>
-  //       <Settings />
-  //     </PrivateRoute>
-  //   ), // Settings page route
-  // },
   {
     path: "/dashboard",
     element: (
@@ -48,8 +23,21 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "task/:id",
-        element: <TaskDetails />,
+        path: "task",
+        children: [
+          {
+            index: true,
+            element: <TaskCreate />,
+          },
+          {
+            path: "details/:id",
+            element: <TaskDetails />,
+          },
+          {
+            path: "update/:id",
+            element: <TaskUpdate />,
+          },
+        ],
       },
       {
         path: "settings",

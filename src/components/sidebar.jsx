@@ -35,7 +35,7 @@ const Sidebar = () => {
   const { logout } = useAuth();
   const { pathname } = useLocation();
   const routeTitle =
-    items.find((item) => item.key === pathname)?.title || (pathname.includes("task") ? "Task Details" : "Not Found");
+    items.find((item) => item.key === pathname)?.title || (pathname === "/dashboard/task" ? "Task" : "Task Details");
 
   const [collapsed, setCollapsed] = React.useState({
     collapsed: false,
@@ -45,7 +45,7 @@ const Sidebar = () => {
   const avatarMenu = [
     {
       key: "logout",
-      label: <p className='px-1 py-0.5 text-sm font-normal'>Logout</p>,
+      label: <p className='py-0.5 text-sm font-normal'>Logout</p>,
       onClick: () => logout(),
     },
   ];
@@ -53,14 +53,14 @@ const Sidebar = () => {
   return (
     <Layout className='min-h-screen'>
       <Layout.Sider
-        width={220}
+        width={240}
         style={{
           background: "#fff",
           height: "100vh",
         }}
         breakpoint='lg'
         collapsedWidth='0'
-        className='adminSidebar left-0 top-0 z-10 border-r'
+        className='adminSidebar left-0 top-0 z-10 border-r px-4'
         onCollapse={(collapsed, type) => {
           setCollapsed((prev) => ({
             ...prev,
@@ -85,13 +85,18 @@ const Sidebar = () => {
           }
         }}
       >
-        <div className='px-4 pb-3 pt-4'>
+        <div className='py-4'>
           <h1 className='flex h-12 items-center justify-center rounded-md bg-slate-100'>
-            <span className='text-primary font-iceberg text-xl font-extrabold uppercase'>admin</span>
+            <span className='text-primary font-iceberg text-xl font-extrabold uppercase'>Tasky</span>
           </h1>
         </div>
 
-        <Menu mode='inline' items={items} selectedKeys={[items.find((item) => item.key === pathname)?.key]} />
+        <Menu
+          mode='inline'
+          items={items}
+          selectedKeys={[items.find((item) => item.key === pathname)?.key]}
+          className='!border-none'
+        />
       </Layout.Sider>
 
       <Layout className='relative'>

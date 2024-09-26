@@ -132,7 +132,7 @@ const tasksSlice = createSlice({
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.loading = false;
-        state.tasks = state.tasks.filter((task) => task._id !== action.meta.arg); // Remove the task from the state
+        state.tasks = state.tasks.filter((task) => !action.meta.arg.ids.includes(task._id)); // Remove the task from the state
       })
       .addCase(deleteTask.rejected, (state, action) => {
         state.loading = false;
